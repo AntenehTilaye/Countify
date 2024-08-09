@@ -60,6 +60,9 @@ class PageLoader {
         // Count the number of <img> elements in the HTML content
         $elementCount = $this->countImgElements($htmlContent);
 
+        $this->load_time = $loadTime;
+        $this->elementCount = $loadTime;
+
         // Return the load time, HTML content, and image count as an array
         return [
             'load_time' => $loadTime,
