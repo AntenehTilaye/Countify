@@ -15,7 +15,7 @@
     <div class="page">
         <div class="header">
             <div class="logo">
-                #
+                <span><</span>#<span>></span>
             </div>
             <div class="logo-text">
                 HTML Element Counter
@@ -23,7 +23,7 @@
         </div>
         <div class="content">
 
-            <form onsubmit="" class="form-holder">
+            <form onsubmit="return false" class="form-holder">
                 <div class="input-group">
                     <label for="url_input" class="input-label">URL</label>
                     <input type="text" id="url_input" class="the-input">
@@ -33,7 +33,7 @@
                     <input type="text" id="element_input" class="the-input">
                 </div>
                 <div class="input-group">
-                    <button type="submit" class="button">Submit</button>
+                    <button type="button" class="button" onclick="countHandler()">Submit</button>
                 </div>
             </form>
 
@@ -108,6 +108,8 @@
             Developed by <span>Anteneh Tilaye</span>        
         </div>
     </div>
+
+    <script src="./public/app.js"></script>
 </body>
 
 </html>
