@@ -1,6 +1,6 @@
 <?php
 
-require 'Database.php'; // Ensure this file contains your Database class definition
+require_once __DIR__ .'/../config/Database.php';
 
 class CreateElementsTable extends Database {
 

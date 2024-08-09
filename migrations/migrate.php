@@ -1,8 +1,5 @@
 <?php
 
-require '../config/Database.php';
-
-// Include all migration files
 require 'create_domains_table.php';
 require 'create_urls_table.php';
 require 'create_elements_table.php';
@@ -34,7 +31,9 @@ class MigrationRunner {
 
 // Run migrations
 $migrationRunner = new MigrationRunner();
-$migrationRunner->run(); // Apply all migrations
+
+// Apply all migrations
+$migrationRunner->run(); 
 
 // Rollback migrations if needed
 // $migrationRunner->rollback(); // Revert all migrations

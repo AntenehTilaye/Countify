@@ -1,6 +1,6 @@
 <?php
 
-require '../config/Database.php';
+require_once __DIR__ .'/../config/Database.php';
 
 
 class CreateDomainsTable extends Database {
