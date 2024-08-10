@@ -11,7 +11,7 @@ class CreateDomainsTable extends Database {
             name VARCHAR(255) NOT NULL
         );";
 
-        $pdo = $this->connect();
+        $pdo = Database::getInstance()->getConnection();
         $stmt = $pdo->prepare($query);
         $stmt->execute();
 
@@ -21,7 +21,7 @@ class CreateDomainsTable extends Database {
     public function down() {
         $query = "DROP TABLE IF EXISTS domains;";
         
-        $pdo = $this->connect();
+        $pdo = Database::getInstance()->getConnection();
         $stmt = $pdo->prepare($query);
         $stmt->execute();
         
