@@ -58,7 +58,7 @@ class PageLoader
         // Check for any cURL errors
         if (curl_errno($ch)) {
             $this->isError = true;
-            $this->errorMessage = 'Error: ' . curl_error($ch);
+            $this->errorMessage = 'Error: something went wrong! Please try Again later'; // . curl_error($ch);
             curl_close($ch);
         }
 

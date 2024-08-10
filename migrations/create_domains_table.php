@@ -3,7 +3,7 @@
 require_once __DIR__ .'/../config/Database.php';
 
 
-class CreateDomainsTable extends Database {
+class CreateDomainsTable  {
 
     public function up() {
         $query = "CREATE TABLE IF NOT EXISTS domains (

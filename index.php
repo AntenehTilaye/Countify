@@ -27,33 +27,40 @@
                 <div class="input-group">
                     <label for="url_input" class="input-label">URL</label>
                     <input type="text" id="url_input" class="the-input">
+                    <div class="error" id="url_error"></div>
                 </div>
                 <div class="input-group">
                     <label for="element_input" class="input-label">Element</label>
                     <input type="text" id="element_input" class="the-input">
+                    <div class="error" id="element_error"></div>
                 </div>
                 <div class="input-group">
                     <button type="button" class="button" onclick="countHandler()">Submit</button>
                 </div>
+
+                <div class="error" id="general_error"></div>
             </form>
 
-            <div class="response-holder">
+            <div class="res_loader" id="res_loader">
+                <img src="./public/pulse.gif" />
+            </div>
+            <div class="response-holder" id="res_holder">
                 <div class="current-request">
                     <div class="url">
                         <span class="logo">URL</span>
-                        <span class="link">http://colnect.com/en</span>
+                        <span class="link" id="the_url">http://colnect.com/en</span>
                         Fetched on
-                        <span class="date">29/06/2023 1:23</span>
+                        <span class="date" id="request_date">29/06/2023 1:23</span>
                         , took
-                        <span class="second">532msec</span>
+                        <span class="second" id="load_time">532msec</span>
                     </div>
                     <div class="element">
                         <span class="logo">Element</span>
-                        <span class="tag">
-                            < img>
+                        <span class="tag" id="element_tag">
+                            < img >
                         </span>
                         appeared
-                        <span class="count">2</span>
+                        <span class="count" id="current_element_count">2</span>
                         time on the page
                     </div>
                 </div>
@@ -62,7 +69,7 @@
                     <div class="card">
                         <div class="count">
                             <i class="fa-solid fa-link"></i>
-                            <div class="num">323</div>
+                            <div class="num" id="check_url">323</div>
                         </div>
                         <div class="label">
                             Checked URLs (domain)
@@ -71,10 +78,10 @@
                     <div class="card">
                         <div class="count">
                             <i class="fa-solid fa-clock"></i>
-                            <div class="num">323</div>
+                            <div class="num" id="avg_time">323</div>
                         </div>
                         <div class="label">
-                            Avg. fetch time (24 hrs)
+                            Average fetch time (24 hrs)
                         </div>
                     </div>
 
@@ -82,7 +89,7 @@
                     <div class="card">
                         <div class="count">
                             <i class="fa-solid fa-code"></i>
-                            <div class="num">323</div>
+                            <div class="num" id="element_count">323</div>
                         </div>
                         <div class="label">
                             Element count (domain)
@@ -93,7 +100,7 @@
                     <div class="card">
                         <div class="count">
                             <i class="fa-solid fa-file-code"></i>
-                            <div class="num">323</div>
+                            <div class="num" id="element_count_all">323</div>
                         </div>
                         <div class="label">
                             Element count (all)

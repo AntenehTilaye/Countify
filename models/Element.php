@@ -1,6 +1,6 @@
 <?php
 
-class Element extends Database {
+class Element {
     private $id;
     private $name;
 

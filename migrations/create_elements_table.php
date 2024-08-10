@@ -2,7 +2,7 @@
 
 require_once __DIR__ .'/../config/Database.php';
 
-class CreateElementsTable extends Database {
+class CreateElementsTable {
 
     public function up() {
         $query = "CREATE TABLE IF NOT EXISTS elements (

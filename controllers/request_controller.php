@@ -17,17 +17,14 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $errors = $validator->validate();
 
     if(!empty($errors)){
+        
+        $errors['is_error'] = true;
+        $errors['error_type'] = "validation";
         echo json_encode($errors);
         return;
     } 
 
     $ploader = new PageLoader($url, $element);
-
-
-    if ($ploader->isError()) {
-        echo $ploader->getErrorMessage();
-        return;
-    }
 
     $domain = Domain::findByName($ploader->getDomain());
     if(!$domain) {
@@ -48,8 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     }
 
     $pre_req = Request::getIfRecent($url->getId(), $element->getId());
-
-        
     
     if($pre_req){
 
@@ -66,17 +61,31 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             'count' => $pre_req->getElementCount(),
             //general stats
             'check_url' => $check_url['num_urls'],
-            'avg_time' => $avg_time['avg_time'],
+            'avg_time' => round($avg_time['avg_time']),
             'element_domain_count' => $element_domain_count['total_count'],
             'element_all_count' => $element_all_count['total_count']
         );
 
+        
+        $res['is_error'] = false;
         echo json_encode($res);
         return;
     }
 
     
     $ploader->load();
+
+    if ($ploader->isError()) {
+        
+        $res = array();
+        $res['is_error'] = true;
+        $res['error_type'] = "loading";
+        $res['error_message'] = $ploader->getErrorMessage();
+
+        echo json_encode($res);
+        return;
+    }
+    
     $req = new Request($domain->getId(), $url->getId(), $element->getId(), $ploader->getElementCount(), $ploader->getDateTime(), $ploader->getLoadTime());
     $req->save();
 
@@ -93,12 +102,12 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         'count' => $req->getElementCount(),
         //general stats
         'check_url' => $check_url['num_urls'],
-        'avg_time' => $avg_time['avg_time'],
+        'avg_time' => round($avg_time['avg_time']),
         'element_domain_count' => $element_domain_count['total_count'],
         'element_all_count' => $element_all_count['total_count']
     );
 
-
+    $res['is_error'] = false;
     echo json_encode($res);
 
 }

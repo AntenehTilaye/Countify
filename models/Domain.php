@@ -1,6 +1,6 @@
 <?php
 
-class Domain extends Database {
+class Domain {
     private $id;
     private $name;
 

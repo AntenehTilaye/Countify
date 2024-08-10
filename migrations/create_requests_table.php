@@ -2,7 +2,7 @@
 
 require_once __DIR__ .'/../config/Database.php';
 
-class CreateRequestsTable extends Database {
+class CreateRequestsTable {
 
     public function up() {
         $pdo = Database::getInstance()->getConnection();

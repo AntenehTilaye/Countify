@@ -1,6 +1,6 @@
 <?php
 
-class Request extends Database
+class Request
 {
     private $id;
     private $domainId;

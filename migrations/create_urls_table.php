@@ -2,7 +2,7 @@
 
 require_once __DIR__ .'/../config/Database.php';
 
-class CreateUrlsTable extends Database {
+class CreateUrlsTable {
 
     public function up() {
         $query = "CREATE TABLE IF NOT EXISTS urls (
@@ -10,7 +10,7 @@ class CreateUrlsTable extends Database {
             name VARCHAR(255) NOT NULL
         );";
 
-        $pdo =Database::getInstance()->getConnection();
+        $pdo = Database::getInstance()->getConnection();
         $stmt = $pdo->prepare($query);
         $stmt->execute();
 

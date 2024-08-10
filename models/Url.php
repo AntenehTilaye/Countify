@@ -1,6 +1,6 @@
 <?php
 
-class Url extends Database {
+class Url {
     private $id;
     private $name;
 

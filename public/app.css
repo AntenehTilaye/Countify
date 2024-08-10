@@ -1,10 +1,14 @@
 :root {
-    font-size: 15px;
-    --primary-color: #6200ea;
+    font-size: 13px;
+    /* --primary-color: #6200ea; */
+    --primary-color: #396898;
+    --primary-color2: #173B5F;
+    --primary-color3: #567ca1;
     --secondary-color: white;
     --accent-color: rgb(18, 128, 82);
     --border-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     --border-light: 1px solid rgba(0, 0, 0, 0.1);
+    --border-mid: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 body {
@@ -82,6 +86,26 @@ body {
         padding: 1rem;
         border-radius: 0.5rem;
     }
+
+    .error {
+        width: 100%;
+        color: orangered;
+        border: var(--border-light);
+        padding: 0.5rem 0.6rem;
+        border-radius: 0.3rem;
+        display: none;
+        transition: 500ms;
+    }
+
+    .res_loader {
+        width: 100%;
+        display: none;
+        text-align: center;
+
+        img {
+            width: 70px;
+        }
+    }
 }
 
 .input-group {
@@ -89,7 +113,7 @@ body {
     flex-direction: column;
     row-gap: 0.4rem;
     justify-content: start;
-    place-content: end;
+    place-content: top;
     margin-bottom: 1rem;
     flex-grow: 1;
 
@@ -114,24 +138,36 @@ body {
         font-weight: 700;
         color: var(--secondary-color);
         margin: 0px;
-        padding: 7px 10px;
+        padding: 9px 10px;
         cursor: pointer;
         border-radius: 0.5rem;
         border: none;
         background-color: var(--primary-color);
         transition: background-color 0.3s ease, box-shadow 0.3s ease;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        margin-top: 1.8rem;
     }
 
     .button:hover {
-        background-color: #4b00b4;
+        background-color: var(--primary-color2);
         box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .error {
+        color: orangered;
+        border: var(--border-light);
+        display: none;
+        padding: 0.5rem 0.5rem;
+        border-radius: 0.4rem;
+        box-sizing: border-box;
+        width: 100%;
+        transition: 500ms;
     }
 }
 
 .response-holder {
     width: 100%;
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 10px;
 
@@ -188,6 +224,7 @@ body {
                 place-content: center;
                 gap: 1rem;
                 font-size: 4rem;
+                transition: 500ms;
 
                 .num {
                     font-size: 2rem;
@@ -203,13 +240,13 @@ body {
             }
 
             .label {
-                border-top: 1px solid black;
+                border-top: var(--border-mid);
                 padding-top: 10px;
             }
         }
 
         .card:hover i {
-            color: #9f6ce6;
+            color: var(--primary-color3);
         }
     }
 }
