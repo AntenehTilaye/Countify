@@ -29,12 +29,12 @@
             <form onsubmit="return false" class="form-holder">
                 <div class="input-group">
                     <label for="url_input" class="input-label">URL</label>
-                    <input type="text" id="url_input" class="the-input">
+                    <input type="text" id="url_input" class="the-input" required>
                     <div class="error" id="url_error"></div>
                 </div>
                 <div class="input-group">
                     <label for="element_input" class="input-label">Element</label>
-                    <input type="text" id="element_input" class="the-input">
+                    <input type="text" id="element_input" class="the-input" required>
                     <div class="error" id="element_error"></div>
                 </div>
                 <div class="input-group">

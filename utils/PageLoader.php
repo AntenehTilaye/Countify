@@ -73,13 +73,24 @@ class PageLoader
             $this->isError = true;
             $this->errorMessage = 'Error: something went wrong! Please try again later';
             curl_close($ch);
+            return;
+        }
+
+
+        // Check if the HTML content contains the string "html"
+        if (strpos($htmlContent, 'html') === false) {
+            // Handle the case where the content is not valid HTML
+            $this->isError = true;
+            $this->errorMessage = 'invalid html content';
+            curl_close($ch);
+            return;
         }
 
         // Close the cURL session
         curl_close($ch);
 
         // Count the number of specified elements in the HTML content
-        $elementCount = $this->countImgElements($htmlContent);
+        $elementCount = $this->countElements($htmlContent);
 
         $this->loadTime = $loadTime;
         $this->elementCount = $elementCount;
@@ -92,7 +103,7 @@ class PageLoader
      * @param string $htmlContent
      * @return int
      */
-    private function countImgElements($htmlContent)
+    private function countElements($htmlContent)
     {
         // Create a new DOMDocument instance
         $dom = new DOMDocument();

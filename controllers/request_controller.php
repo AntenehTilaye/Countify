@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     // Retrieve and trim the user inputs
     $url = trim($_POST['url']);
     $element = trim($_POST['element']);
+    
 
     // Validate the inputs
     $validator = new Validator($url, $element);
