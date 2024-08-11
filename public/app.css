@@ -118,7 +118,7 @@ body {
     flex-grow: 1;
 
     .the-input {
-        font-size: 1rem;
+        font-size: 1.1rem;
         padding: 0.5rem 0.5rem;
         border: 1px solid rgb(175, 174, 174);
         border-radius: 0.4rem;

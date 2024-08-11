@@ -1,15 +1,31 @@
 <?php
 
+/**
+ * Represents a request record in the database.
+ * It provides methods for basic CRUD operations (Create, Read, Update, Delete) and static methods for querying the database.
+ */
 class Request
 {
-    private $id;
-    private $domainId;
-    private $urlId;
-    private $elementId;
-    private $elementCount;
-    private $dateTime;
-    private $duration;
+    // Private properties of the class
+    private $id;            // ID of the request
+    private $domainId;      // Domain ID associated with the request
+    private $urlId;         // URL ID associated with the request
+    private $elementId;     // Element ID associated with the request
+    private $elementCount;  // Number of elements in the request
+    private $dateTime;      // Date and time of the request
+    private $duration;      // Duration of the request
 
+    /**
+     * Constructor to initialize a Request object.
+     *
+     * @param int $domainId
+     * @param int $urlId
+     * @param int $elementId
+     * @param int $elementCount
+     * @param string $dateTime
+     * @param int $duration
+     * @param int|null $id
+     */
     public function __construct($domainId, $urlId, $elementId, $elementCount, $dateTime, $duration, $id = null)
     {
         $this->id = $id;
@@ -21,10 +37,16 @@ class Request
         $this->duration = $duration;
     }
 
+    /**
+     * Save the current request to the database.
+     *
+     * @return self
+     */
     public function save()
     {
         $conn = Database::getInstance()->getConnection();
 
+        // Prepare the SQL query for inserting a new record
         $query = "INSERT INTO requests (domain_id, url_id, element_id, element_count, date_time, duration)
                   VALUES (:domain_id, :url_id, :element_id, :element_count, :date_time, :duration);";
 
@@ -44,6 +66,12 @@ class Request
         return $this;
     }
 
+    /**
+     * Update the current request record in the database.
+     *
+     * @return self
+     * @throws Exception
+     */
     public function update()
     {
         if ($this->id === null) {
@@ -67,6 +95,12 @@ class Request
         return $this;
     }
 
+    /**
+     * Delete the current request record from the database.
+     *
+     * @return self
+     * @throws Exception
+     */
     public function delete()
     {
         if ($this->id === null) {
@@ -82,6 +116,12 @@ class Request
         return $this;
     }
 
+    /**
+     * Find a request record by its ID.
+     *
+     * @param int $id
+     * @return self|null
+     */
     public static function find($id)
     {
         $conn = Database::getInstance()->getConnection();
@@ -105,6 +145,13 @@ class Request
         return null;
     }
 
+    /**
+     * Get the most recent request record for the given URL and element IDs.
+     *
+     * @param int $url_id
+     * @param int $element_id
+     * @return self|null
+     */
     public static function getIfRecent($url_id, $element_id)
     {
         $conn = Database::getInstance()->getConnection();
@@ -134,6 +181,12 @@ class Request
         return null;
     }
 
+    /**
+     * Get the number of distinct URLs checked for a given domain.
+     *
+     * @param int $domain_id
+     * @return array
+     */
     public static function getCheckedURL($domain_id)
     {
         $conn = Database::getInstance()->getConnection();
@@ -147,13 +200,18 @@ class Request
         return $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
     }
 
+    /**
+     * Get the average duration of requests for a given domain in the last day.
+     *
+     * @param int $domain_id
+     * @return array
+     */
     public static function getAverageTime($domain_id)
     {
         $conn = Database::getInstance()->getConnection();
         $query = "SELECT AVG(duration) AS avg_time FROM requests 
                   WHERE requests.domain_id = :domain_id AND 
                   requests.date_time >= :current_time - INTERVAL 1 DAY";
-
 
         $current_time = date('Y-m-d H:i:s');
         $stmt = $conn->prepare($query);
@@ -164,6 +222,13 @@ class Request
         return $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
     }
 
+    /**
+     * Get the total element count for a given domain and element ID.
+     *
+     * @param int $domain_id
+     * @param int $element_id
+     * @return array
+     */
     public static function getElementCountForDomain($domain_id, $element_id)
     {
         $conn = Database::getInstance()->getConnection();
@@ -188,6 +253,12 @@ class Request
         return $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
     }
 
+    /**
+     * Get the total element count for all URLs with a given element ID.
+     *
+     * @param int $element_id
+     * @return array
+     */
     public static function getElementCountForAll($element_id)
     {
         $conn = Database::getInstance()->getConnection();
@@ -211,6 +282,12 @@ class Request
         return $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
     }
 
+    /**
+     * Execute a custom SQL query and return the results.
+     *
+     * @param string $query
+     * @return array
+     */
     public static function select($query)
     {
         $conn = Database::getInstance()->getConnection();
@@ -219,8 +296,12 @@ class Request
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Getter and Setter methods for private properties
+
     /**
-     * Get the value of id
+     * Get the value of id.
+     *
+     * @return int|null
      */
     public function getId()
     {
@@ -228,19 +309,21 @@ class Request
     }
 
     /**
-     * Set the value of id
+     * Set the value of id.
      *
-     * @return  self
+     * @param int $id
+     * @return self
      */
     public function setId($id)
     {
         $this->id = $id;
-
         return $this;
     }
 
     /**
-     * Get the value of domain id
+     * Get the value of domain id.
+     *
+     * @return int
      */
     public function getDomainId()
     {
@@ -248,19 +331,21 @@ class Request
     }
 
     /**
-     * Set the value of domain id
+     * Set the value of domain id.
      *
-     * @return  self
+     * @param int $domainId
+     * @return self
      */
     public function setDomainId($domainId)
     {
         $this->domainId = $domainId;
-
         return $this;
     }
 
     /**
-     * Get the value of urlId
+     * Get the value of urlId.
+     *
+     * @return int
      */
     public function getUrlId()
     {
@@ -268,19 +353,21 @@ class Request
     }
 
     /**
-     * Set the value of urlId
+     * Set the value of urlId.
      *
-     * @return  self
+     * @param int $urlId
+     * @return self
      */
     public function setUrlId($urlId)
     {
         $this->urlId = $urlId;
-
         return $this;
     }
 
     /**
-     * Get the value of elementId
+     * Get the value of elementId.
+     *
+     * @return int
      */
     public function getElementId()
     {
@@ -288,19 +375,21 @@ class Request
     }
 
     /**
-     * Set the value of elementId
+     * Set the value of elementId.
      *
-     * @return  self
+     * @param int $elementId
+     * @return self
      */
     public function setElementId($elementId)
     {
         $this->elementId = $elementId;
-
         return $this;
     }
 
     /**
-     * Get the value of element_count
+     * Get the value of element_count.
+     *
+     * @return int
      */
     public function getElementCount()
     {
@@ -308,19 +397,21 @@ class Request
     }
 
     /**
-     * Set the value of element_count
+     * Set the value of element_count.
      *
-     * @return  self
+     * @param int $elementCount
+     * @return self
      */
     public function setElementCount($elementCount)
     {
         $this->elementCount = $elementCount;
-
         return $this;
     }
 
     /**
-     * Get the value of date_time
+     * Get the value of date_time.
+     *
+     * @return string
      */
     public function getDateTime()
     {
@@ -328,19 +419,21 @@ class Request
     }
 
     /**
-     * Set the value of date_time
+     * Set the value of date_time.
      *
-     * @return  self
+     * @param string $dateTime
+     * @return self
      */
     public function setDateTime($dateTime)
     {
         $this->dateTime = $dateTime;
-
         return $this;
     }
 
     /**
-     * Get the value of duration
+     * Get the value of duration.
+     *
+     * @return int
      */
     public function getDuration()
     {
@@ -348,14 +441,14 @@ class Request
     }
 
     /**
-     * Set the value of duration
+     * Set the value of duration.
      *
-     * @return  self
+     * @param int $duration
+     * @return self
      */
     public function setDuration($duration)
     {
         $this->duration = $duration;
-
         return $this;
     }
 }
